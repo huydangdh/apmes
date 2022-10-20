@@ -7,7 +7,8 @@ import { createBrowserRouter } from 'react-router-dom'
 import Login from './pages/Login'
 import SignUp from './pages/Signup'
 
-
+import store from 'store';
+import { Provider } from 'react-redux'
 
 var router = createBrowserRouter([
   {
@@ -16,7 +17,7 @@ var router = createBrowserRouter([
   },
   {
     path: '/login',
-    element: Login()
+    element: <Login></Login>
   },
   {
     path: '/reg',
@@ -26,6 +27,8 @@ var router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router}></RouterProvider>
+    <Provider store={store}>
+      <RouterProvider router={router}></RouterProvider>
+    </Provider>
   </React.StrictMode>
 )
