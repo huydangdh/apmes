@@ -22,7 +22,7 @@ function doLogoutTest() {
 
   <br/>
   
-  <button v-on:click="doLogoutTest()" v-if="userStore.isAuthenticated" class="button">doLogoutTest</button>
+  <button class="btn btn-danger" v-on:click="doLogoutTest()" v-if="userStore.isAuthenticated" >doLogoutTest</button>
 
 </template>
 
