@@ -13,7 +13,7 @@ const Register = async () => {
         //router.push('/')
       }
       catch (err) {
-        error = err.message
+        error.value = err.message
             }
     }
 

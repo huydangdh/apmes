@@ -1,23 +1,32 @@
 import { defineStore } from 'pinia'
-import firebase from 'firebase'
-export const useUserStore = defineStore('app_user', {
+
+import { User, UserCredential  } from 'firebase/auth'
+
+interface UserState {
+  isAuthenticated : boolean,
+  user : UserCredential | undefined
+}
+
+export const useUserStore = defineStore<'app_user',UserState,{},{}>('app_user', {
   state: () => {
-    return { isAuthenticated: false, user: UserCredential | null }
+    return { isAuthenticated: false, user: undefined}
   },
   // could also be defined as
-  // state: () => ({ count: 0 })
+  // state: () => ({ count: )
   actions: {
     doLogin() {
-      this.isLogin = true
+      this.isAuthenticated = true
     },
     doLogout() {
-      this.isLogin = false
+      this.isAuthenticated = false
     },
     checkAuthentication(){
       var isok = localStorage.getItem('user_isAuthenticated')
       if(isok == 'ok')
       {
         this.isAuthenticated = true
+        
+      
       } else this.isAuthenticated = false
       
       return this.isAuthenticated

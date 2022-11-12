@@ -3,7 +3,8 @@ import { ref } from 'vue'
 import router from '../router';
 import { useUserStore } from '../stores/UserStore'
 import { auth } from '../firebaseConfig'
-import { signInWithEmailAndPassword } from 'firebase/auth'
+import { signInWithEmailAndPassword, User } from 'firebase/auth'
+import { UserCredential  } from 'firebase/auth'
 
 defineProps<{ msg: string }>()
 
@@ -11,19 +12,10 @@ const count = ref(0)
 const error = ref('')
 const userStore = useUserStore()
 
-
-function doLoginTest() {
-  userStore.doLogin();  
-  localStorage.setItem('user_isAuthenticated','ok');
-  router.push("/");
-}
-
-
   const signIn = (email: string, password: string) => { // we also renamed this method
-      alert(email)
       signInWithEmailAndPassword(auth, email, password) // THIS LINE CHANGED
-      .then((data) => {
-        alert(data.toString())
+      .then((data : UserCredential) => {
+        alert(JSON.stringify(data.user.toJSON()))
         console.log('Successfully logged in!');
         router.push('/feed') // redirect to the feed
       })
