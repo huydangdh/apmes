@@ -1,7 +1,9 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+// import { getAnalytics } from "firebase/analytics";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+
+import { useUserStore } from "./stores/UserStore";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -20,10 +22,10 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 const auth = getAuth(app);
 onAuthStateChanged(auth, (user) => {
-  if (user) console.log(JSON.stringify(user.toJSON()));
+  let userStore = useUserStore();
+  if (user) userStore.setUser(user);
   else console.log("null");
 });
-export { app, analytics, auth };
+export { app, auth };

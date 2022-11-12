@@ -4,10 +4,20 @@ import { User, UserCredential } from "firebase/auth";
 
 interface UserState {
   isAuthenticated: boolean;
-  user: UserCredential | undefined;
+  user: User | undefined;
 }
 
-export const useUserStore = defineStore<"app_user", UserState, {}, {}>(
+interface UserStoreAction {
+  doLogin(): void,
+  doLogout(): void,
+  setUser(user: User): void,
+}
+
+type UserStoreGetter = {
+  getUser(): User | undefined,
+}
+
+export const useUserStore = defineStore<"app_user", UserState, UserStoreGetter, UserStoreAction>(
   "app_user",
   {
     state: () => {
@@ -15,6 +25,12 @@ export const useUserStore = defineStore<"app_user", UserState, {}, {}>(
     },
     // could also be defined as
     // state: () => ({ count: )
+    getters:{
+      getUser():User | undefined {
+        if(this.user) return this.user;
+        else return undefined;
+      }
+    },
     actions: {
       doLogin() {
         this.isAuthenticated = true;
@@ -22,14 +38,9 @@ export const useUserStore = defineStore<"app_user", UserState, {}, {}>(
       doLogout() {
         this.isAuthenticated = false;
       },
-      checkAuthentication() {
-        var isok = localStorage.getItem("user_isAuthenticated");
-        if (isok == "ok") {
-          this.isAuthenticated = true;
-        } else this.isAuthenticated = false;
-
-        return this.isAuthenticated;
-      },
+      setUser(user: User){
+        this.user = user
+      }
     },
   }
 );

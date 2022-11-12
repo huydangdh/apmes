@@ -8,7 +8,6 @@ defineProps<{ msg: string }>();
 const userStore = useUserStore();
 
 function doLogoutTest() {
-  userStore.doLogout();
   localStorage.removeItem("user_isAuthenticated");
   router.push("/login");
 }
