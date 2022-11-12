@@ -1,23 +1,20 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import router from '../router';
+import { ref } from "vue";
+import router from "../router";
 
-defineProps<{ msg: string }>()
+defineProps<{ msg: string }>();
 
-const count = ref(0)
-const error = ref('')
+const count = ref(0);
+const error = ref("");
 
 const Register = async () => {
-      try {
-        error.value ='dd'
-        //router.push('/')
-      }
-      catch (err) {
-        error.value = err.message
-            }
-    }
-
-
+  try {
+    error.value = "dd";
+    //router.push('/')
+  } catch (err) {
+    error.value = err.message;
+  }
+};
 </script>
 <template>
   <div class="container">
@@ -26,10 +23,12 @@ const Register = async () => {
         <div class="card">
           <div class="card-header">Register</div>
           <div class="card-body">
-            <div v-if="error" class="alert alert-danger">{{error}}</div>
+            <div v-if="error" class="alert alert-danger">{{ error }}</div>
             <form action="#">
               <div class="form-group row">
-                <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
+                <label for="name" class="col-md-4 col-form-label text-md-right"
+                  >Name</label
+                >
 
                 <div class="col-md-6">
                   <input
@@ -46,7 +45,9 @@ const Register = async () => {
               </div>
 
               <div class="form-group row">
-                <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
+                <label for="email" class="col-md-4 col-form-label text-md-right"
+                  >Email</label
+                >
 
                 <div class="col-md-6">
                   <input
@@ -63,7 +64,11 @@ const Register = async () => {
               </div>
 
               <div class="form-group row">
-                <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+                <label
+                  for="password"
+                  class="col-md-4 col-form-label text-md-right"
+                  >Password</label
+                >
 
                 <div class="col-md-6">
                   <input
@@ -79,7 +84,9 @@ const Register = async () => {
 
               <div class="form-group row mb-0">
                 <div class="col-md-8 offset-md-4">
-                  <a class="btn btn-primary" v-on:click='Register()'>Register</a>
+                  <a class="btn btn-primary" v-on:click="Register()"
+                    >Register</a
+                  >
                 </div>
               </div>
             </form>

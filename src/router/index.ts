@@ -1,9 +1,8 @@
 import { createWebHistory, createRouter } from "vue-router";
-import Dashboard from '../pages/Dashboard.vue'
-import Login from '../pages/Login.vue'
-import Signup from '../pages/Signup.vue'
+import Dashboard from "../pages/Dashboard.vue";
+import Login from "../pages/Login.vue";
+import Signup from "../pages/Signup.vue";
 import { useUserStore } from "../stores/UserStore";
-
 
 const routes = [
   {
@@ -16,7 +15,7 @@ const routes = [
     name: "login",
     component: Login,
   },
-   {
+  {
     path: "/reg",
     name: "reg",
     component: Signup,
@@ -42,21 +41,20 @@ if(isAuthenticated) {
   next('/login'); // go to '/login';
  }
 }*/
-router.beforeEach((to, from)=>{
+router.beforeEach((to, from) => {
   const isAuthenticated = useUserStore().checkAuthentication();
   //if (!isAuthenticated && to.name === 'reg') return {name : 'reg'}
-  if (isAuthenticated && to.name === 'login') return {name : 'dashboard'}
+  if (isAuthenticated && to.name === "login") return { name: "dashboard" };
 
   if (
     // make sure the user is authenticated
     !isAuthenticated &&
     // ❗️ Avoid an infinite redirect
-    to.name !== 'login'
+    to.name !== "login"
   ) {
     // redirect the user to the login page
-    return { name: 'login' }
+    return { name: "login" };
   }
-})
-
+});
 
 export default router;

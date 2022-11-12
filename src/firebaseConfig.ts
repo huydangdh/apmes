@@ -15,15 +15,15 @@ const firebaseConfig = {
   storageBucket: "huyimgdrive-1604305669778.appspot.com",
   messagingSenderId: "700319487511",
   appId: "1:700319487511:web:26f9ae0ac1e33461026e52",
-  measurementId: "G-2H1PGYNZWE"
+  measurementId: "G-2H1PGYNZWE",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-const auth = getAuth(app)
-onAuthStateChanged(auth,(user) => {
-  if(user) console.log(JSON.stringify(user.toJSON()))
-  else console.log("null")
-})
-export {app, analytics, auth}
+const auth = getAuth(app);
+onAuthStateChanged(auth, (user) => {
+  if (user) console.log(JSON.stringify(user.toJSON()));
+  else console.log("null");
+});
+export { app, analytics, auth };
