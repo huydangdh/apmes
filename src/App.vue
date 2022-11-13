@@ -9,10 +9,8 @@ const userStore = useUserStore();
 
 <template>
   <div id="nav">
-    <router-link to="/" v-if="userStore.isAuthenticated">Home</router-link>
-    <router-link to="/login" v-if="!userStore.isAuthenticated"
-      >Login</router-link
-    >
+    <router-link to="/" v-if="userStore.getUser">Home</router-link>
+    <router-link to="/login" v-if="!userStore.getUser">Login</router-link>
   </div>
   <router-view />
 </template>

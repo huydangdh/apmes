@@ -4,43 +4,45 @@ import { User, UserCredential } from "firebase/auth";
 
 interface UserState {
   isAuthenticated: boolean;
-  user: User | undefined;
+  user: User | null;
 }
 
 interface UserStoreAction {
-  doLogin(): void,
-  doLogout(): void,
-  setUser(user: User): void,
+  doLogin(): void;
+  doLogout(): void;
+  setUser(user: User): void;
 }
 
 type UserStoreGetter = {
-  getUser(): User | undefined,
-}
+  getUser(): User | undefined;
+};
 
-export const useUserStore = defineStore<"app_user", UserState, UserStoreGetter, UserStoreAction>(
+export const useUserStore = defineStore<
   "app_user",
-  {
-    state: () => {
-      return { isAuthenticated: false, user: undefined };
+  UserState,
+  UserStoreGetter,
+  UserStoreAction
+>("app_user", {
+  state: () => {
+    return { isAuthenticated: false, user: null };
+  },
+  // could also be defined as
+  // state: () => ({ count: )
+  getters: {
+    getUser(): User | null {
+      if (this.user) return this.user;
+      else return null;
     },
-    // could also be defined as
-    // state: () => ({ count: )
-    getters:{
-      getUser():User | undefined {
-        if(this.user) return this.user;
-        else return undefined;
-      }
+  },
+  actions: {
+    doLogin() {
+      this.isAuthenticated = true;
     },
-    actions: {
-      doLogin() {
-        this.isAuthenticated = true;
-      },
-      doLogout() {
-        this.isAuthenticated = false;
-      },
-      setUser(user: User){
-        this.user = user
-      }
+    doLogout() {
+      this.isAuthenticated = false;
     },
-  }
-);
+    setUser(user: User | null) {
+      this.user = user;
+    },
+  },
+});

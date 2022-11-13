@@ -19,8 +19,9 @@ const signIn = (email: string, password: string) => {
   signInWithEmailAndPassword(auth, email, password) // THIS LINE CHANGED
     .then((data: UserCredential) => {
       alert(JSON.stringify(data.user.toJSON()));
+      localStorage.setItem("user", JSON.stringify(data.user.toJSON()));
       console.log("Successfully logged in!");
-      router.push("/feed"); // redirect to the feed
+      router.push("/"); // redirect to the feed
     })
     .catch((error) => {
       console.log(error.code);

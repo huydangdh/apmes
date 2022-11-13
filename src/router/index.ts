@@ -4,6 +4,9 @@ import Login from "../pages/Login.vue";
 import Signup from "../pages/Signup.vue";
 import { useUserStore } from "../stores/UserStore";
 
+import { User, UserCredential } from "firebase/auth";
+import { getCurrentUser } from "../firebaseConfig";
+
 const routes = [
   {
     path: "/",
@@ -41,8 +44,9 @@ if(isAuthenticated) {
   next('/login'); // go to '/login';
  }
 }*/
-router.beforeEach((to, from) => {
-  const isAuthenticated = useUserStore().checkAuthentication();
+router.beforeEach(async (to, from) => {
+  const isAuthenticated = await getCurrentUser();
+  console.log(isAuthenticated);
   //if (!isAuthenticated && to.name === 'reg') return {name : 'reg'}
   if (isAuthenticated && to.name === "login") return { name: "dashboard" };
 

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { auth } from "../firebaseConfig";
 import router from "../router";
 import { useUserStore } from "../stores/UserStore";
 
@@ -7,25 +8,30 @@ defineProps<{ msg: string }>();
 
 const userStore = useUserStore();
 
-function doLogoutTest() {
-  localStorage.removeItem("user_isAuthenticated");
-  router.push("/login");
+async function doLogout() {
+  let user = userStore.getUser;
+  if (user) {
+    await auth.signOut();
+    router.push("/login");
+  } else {
+    alert("Error");
+  }
 }
 </script>
 
 <template>
   <h1>{{ msg }}</h1>
   Dashboard <br />
-  My state is: {{ userStore.isAuthenticated.toString() }}
+  User: {{ userStore.getUser }}
 
   <br />
 
   <button
     class="btn btn-danger"
-    v-on:click="doLogoutTest()"
-    v-if="userStore.isAuthenticated"
+    v-on:click="doLogout()"
+    v-if="userStore.getUser"
   >
-    doLogoutTest
+    LOGOUT
   </button>
 </template>
 

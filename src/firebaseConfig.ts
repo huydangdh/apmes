@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 // import { getAnalytics } from "firebase/analytics";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { User, getAuth, onAuthStateChanged } from "firebase/auth";
 
 import { useUserStore } from "./stores/UserStore";
 
@@ -23,9 +23,17 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-onAuthStateChanged(auth, (user) => {
-  let userStore = useUserStore();
-  if (user) userStore.setUser(user);
-  else console.log("null");
-});
-export { app, auth };
+
+const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      unsubscribe();
+      if (user) {
+        useUserStore().setUser(user);
+        resolve(user);
+      } else reject("user not foud");
+    }, reject);
+  });
+};
+
+export { app, auth, getCurrentUser };
