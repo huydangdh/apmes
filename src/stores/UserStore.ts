@@ -29,9 +29,8 @@ export const useUserStore = defineStore<
   // could also be defined as
   // state: () => ({ count: )
   getters: {
-    getUser(): User | null {
-      if (this.user) return this.user;
-      else return null;
+    getUser(): User {
+      return this.user;
     },
   },
   actions: {

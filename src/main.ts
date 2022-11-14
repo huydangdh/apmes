@@ -6,12 +6,19 @@ import router from "./router";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
+import { auth } from "./firebaseConfig";
 
 //
 
 const pinia = createPinia();
-const app = createApp(App);
+let app;
 
-app.use(pinia);
-app.use(router);
-app.mount("#app");
+const unsubscribe = auth.onAuthStateChanged((user) => {
+  unsubscribe()
+  if(!app){
+    app = createApp(App)
+    app.use(pinia)
+    app.use(router)
+    app.mount('#app')
+  }
+})
