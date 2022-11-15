@@ -11,8 +11,9 @@ const userStore = useUserStore();
 async function doLogout() {
   let user = userStore.getUser;
   if (user) {
-    await auth.signOut();
-    router.push("/login");
+    auth.signOut().then(()=>{
+      router.push("/login");
+    });
   } else {
     alert("Error");
   }

@@ -1,6 +1,6 @@
 import { createApp } from "vue";
 import "./style.css";
-import App from "./App.vue";
+import MainApp from "./App.vue";
 import { createPinia } from "pinia";
 import router from "./router";
 
@@ -11,14 +11,13 @@ import { auth } from "./firebaseConfig";
 //
 
 const pinia = createPinia();
-let app;
+let app: any;
 
-const unsubscribe = auth.onAuthStateChanged((user) => {
-  unsubscribe()
+auth.onAuthStateChanged((user) => {
   if(!app){
-    app = createApp(App)
-    app.use(pinia)
-    app.use(router)
-    app.mount('#app')
+    app = createApp(MainApp)
+            .use(pinia)
+            .use(router)
+            .mount('#app')
   }
 })
