@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-import { User, UserCredential } from "firebase/auth";
+import { User } from "firebase/auth";
 
 interface UserState {
   isAuthenticated: boolean;
@@ -10,11 +10,11 @@ interface UserState {
 interface UserStoreAction {
   doLogin(): void;
   doLogout(): void;
-  setUser(user: User): void;
+  setUser(user: User | null): void;
 }
 
 type UserStoreGetter = {
-  getUser(): User | undefined;
+  getUser(): User | null;
 };
 
 export const useUserStore = defineStore<
@@ -29,7 +29,7 @@ export const useUserStore = defineStore<
   // could also be defined as
   // state: () => ({ count: )
   getters: {
-    getUser(): User {
+    getUser(): User | null{
       return this.user;
     },
   },

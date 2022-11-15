@@ -12,6 +12,9 @@ const routes = [
     path: "/",
     name: "dashboard",
     component: Dashboard,
+    meta:{
+      requireAuth: true
+    }
   },
   {
     path: "/login",
@@ -44,8 +47,9 @@ if(isAuthenticated) {
   next('/login'); // go to '/login';
  }
 }*/
-router.beforeEach(async (to, from) => {
-  const isAuthenticated = await getCurrentUser();
+router.beforeEach(async (to, _from) => {
+  await getCurrentUser();
+  let isAuthenticated = useUserStore().getUser;
   console.log(isAuthenticated);
   //if (!isAuthenticated && to.name === 'reg') return {name : 'reg'}
   if (isAuthenticated && to.name === "login") return { name: "dashboard" };

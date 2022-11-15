@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 // import { getAnalytics } from "firebase/analytics";
-import { User, getAuth, onAuthStateChanged, browserSessionPersistence, browserLocalPersistence } from "firebase/auth";
+import { getAuth, browserSessionPersistence, browserLocalPersistence } from "firebase/auth";
 
 import { useUserStore } from "./stores/UserStore";
 
@@ -28,10 +28,8 @@ const getCurrentUser = () => {
   return new Promise((resolve, reject) => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       unsubscribe();
-      if (user) {
-        useUserStore().setUser(user); 5
-        resolve(user);
-      } else reject("user not foud");
+      useUserStore().setUser(user);
+      resolve(user);
     }, reject);
   });
 };
