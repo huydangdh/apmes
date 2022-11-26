@@ -1,6 +1,8 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import type { RootState } from ".";
+import { RootState, useAppDispatch } from ".";
+import authService from '../services/authService';
+import { setIsBusy } from './appSlice';
 
 // Define a type for the slice state
 type UserModel = {
@@ -23,15 +25,25 @@ export const userSlice = createSlice({
     initialState: initUser,
     reducers: {
         doTestLogin: state => {
-            state.isAuth = true;
+
         },
         doTestLogout: state => {
-            state.isAuth = false;
-        }
+
+        },
+    },
+    extraReducers(builder) {
+        // builder.addCase(authService.doLogin_test.pending, (state, action) => {
+         
+
+        // }),
+        // builder.addCase(authService.doLogin_test.fulfilled, (state, action) => {
+
+        // })
     }
 })
 
 export const { doTestLogin, doTestLogout } = userSlice.actions
 
+export const selectUserStore = (state: RootState) => state.userStore
 
 export default userSlice.reducer;

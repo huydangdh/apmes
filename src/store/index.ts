@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
 import counterSlice from './counterSlice'
-import userSlice from './UserStore'
+import userSlice from './UserSlice'
+import appSlice from './appSlice'
 
 
 export const BigStore = configureStore({
     reducer:{
         counterStore: counterSlice,
-        userStore: userSlice
+        userStore: userSlice,
+        appStore: appSlice
     }
 })
 
