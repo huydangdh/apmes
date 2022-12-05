@@ -14,29 +14,30 @@ import { Console, Decode, Hook } from "console-feed";
 import { appIsBusy } from "./store/appSlice";
 import authService from "./services/authService";
 import { firebaseAuth } from "./constants/firebaseConfig";
+import { Message } from "console-feed/lib/definitions/Component";
 
 
-export default class App extends React.Component {
-
-  state = {
-    logs: [],
-    authed: false,
-    loading: true
+export default class App extends React.Component<{},{logs: Message[]}> {
+  constructor(props:any){
+    super(props)
+    this.state = {
+      logs: []
+    }
   }
 
   componentDidMount() {
-    Hook(window.console, (log) => {
+    Hook(window.console, (log, payload) => {
       this.setState(({ logs }) => ({ logs: [...logs, Decode(log)] }))
     })
 
     console.log(`Hooked...`)
 
     // firebase
-   
+
   }
 
   componentWillUnmount() {
-   
+
   }
 
   render(): React.ReactNode {
@@ -48,7 +49,7 @@ export default class App extends React.Component {
         </div>
         <h1>Basic Example</h1>
         <p>
-        
+
         </p>
         {/* Routes nest inside one another. Nested route paths build upon
             parent route paths, and nested route elements render inside
@@ -139,42 +140,50 @@ const Home = () => {
   )
 }
 
-function Login() {
-  const isLoading = useAppSelector(appIsBusy);
-  const appDispatch = useAppDispatch();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  
-  const doSubmit = () => {
-    authService.doLogin_test(email, password)
+class Login extends React.Component<{},{isLoading: boolean, email: string, password: string}> {
+  constructor(props: any) {
+    super(props)
+    this.state = {
+      isLoading: false,
+      email: '',
+      password: ''
+    }
   }
 
-  return (
-    <Form>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" onChange={e => this.setState({ email: e.target.value })} />
-        <Form.Text className="text-muted">
-          We'll never share your email with anyone else.
-        </Form.Text>
-      </Form.Group>
+  doSubmit() {
 
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control type="password" placeholder="Password" />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicCheckbox">
-        <Form.Check type="checkbox" label="Check me out" />
-      </Form.Group>
-      <Button
-        variant="primary"
-        disabled={isLoading}
-        onClick={!isLoading ? doSubmit : undefined}
-      >
-        {isLoading ? 'Loading…' : 'Login'}
-      </Button>
-    </Form>
-  );
+  }
+
+  render(): React.ReactNode {
+    return (
+      <>
+        <Form>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Email address</Form.Label>
+            <Form.Control type="email" placeholder="Enter email" />
+            <Form.Text className="text-muted">
+              We'll never share your email with anyone else.
+            </Form.Text>
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control type="password" placeholder="Password" />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicCheckbox">
+            <Form.Check type="checkbox" label="Check me out" />
+          </Form.Group>
+          <Button
+            variant="primary"
+            disabled={this.state.isLoading}
+            onClick={this.doSubmit}
+          >
+            {this.state.isLoading ? 'Loading…' : 'Login'}
+          </Button>
+        </Form>
+      </>
+    )
+  }
 }
 
 function About() {
