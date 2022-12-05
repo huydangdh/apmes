@@ -16,37 +16,6 @@ import authService from "./services/authService";
 import { firebaseAuth } from "./constants/firebaseConfig";
 
 
-function PrivateRoute({ component: Component, authed, ...rest }) {
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        authed === true ? (
-          <Component {...props} />
-        ) : (
-          <Redirect
-            to={{ pathname: '/login', state: { from: props.location } }}
-          />
-        )}
-    />
-  );
-}
-
-function PublicRoute({ component: Component, authed, ...rest }) {
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        authed === false ? (
-          <Component {...props} />
-        ) : (
-          <Redirect to="/dashboard" />
-        )}
-    />
-  );
-}
-
-
 export default class App extends React.Component {
 
   state = {
@@ -63,25 +32,11 @@ export default class App extends React.Component {
     console.log(`Hooked...`)
 
     // firebase
-    this.removeListener = firebaseAuth.onAuthStateChanged(user => {
-      if (user) {
-        this.setState({ 
-          authed: true,
-          loading: false
-        });
-
-        console.log(JSON.stringify(user))
-      } else {
-        this.setState({
-          authed: false,
-          loading: false
-        });
-      }
-    });
+   
   }
 
   componentWillUnmount() {
-    this.removeListener();
+   
   }
 
   render(): React.ReactNode {
@@ -93,11 +48,7 @@ export default class App extends React.Component {
         </div>
         <h1>Basic Example</h1>
         <p>
-          This example demonstrates some of the core features of React Router
-          including nested <code>&lt;Route&gt;</code>s,{" "}
-          <code>&lt;Outlet&gt;</code>s, <code>&lt;Link&gt;</code>s, and using a
-          "*" route (aka "splat route") to render a "not found" page when someone
-          visits an unrecognized URL.
+        
         </p>
         {/* Routes nest inside one another. Nested route paths build upon
             parent route paths, and nested route elements render inside
