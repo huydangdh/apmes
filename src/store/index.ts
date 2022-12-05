@@ -1,26 +1,18 @@
-import { configureStore } from '@reduxjs/toolkit'
-import counterSlice from './counterSlice'
-import userSlice from './UserSlice'
-import appSlice from './appSlice'
 
+import { configureStore, createSlice,SliceCaseReducers, CaseReducer,PayloadAction } from "@reduxjs/toolkit";
+import AppSlice from "./AppSlice";
+import UserSlice from "./userStore";
 
-export const BigStore = configureStore({
-    reducer:{
-        counterStore: counterSlice,
-        userStore: userSlice,
-        appStore: appSlice
+/******************************* APP_STORE */
+
+const AppStore = configureStore({
+    reducer : {
+      users : UserSlice.reducer,
+      appState: AppSlice.reducer
     }
-})
+}) 
 
+export type AppRootState = ReturnType<typeof AppStore.getState>
+export type AppDispatch = typeof AppStore.dispatch;
 
-// Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<typeof BigStore.getState>
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
-export type AppDispatch = typeof BigStore.dispatch
-
-
-import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
-
-// Use throughout your app instead of plain `useDispatch` and `useSelector`
-export const useAppDispatch: () => AppDispatch = useDispatch
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
+export default AppStore;

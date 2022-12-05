@@ -1,0 +1,35 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"typescript.tsdk": "node_modules/typescript/lib",
+		"livePreview.hostIP": "127.0.0.1",
+		"livePreview.portNumber": 5173,
+		"editor.fontSize": 13,
+		"editor.fontWeight": "normal",
+		"editor.fontFamily": "'Fira Code',monospace",
+		"editor.fontLigatures": true
+	},
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [
+		{
+			"name": "Attach to Edge",
+			"port": 9222,
+			"request": "attach",
+			"type": "msedge",
+			"webRoot": "${workspaceFolder}"
+		},
+		{
+			"name": "Launch Edge",
+			"request": "launch",
+			"type": "msedge",
+			"url": "http://localhost:5173",
+			"webRoot": "${workspaceFolder}"
+		}
+		]
+	}
+}

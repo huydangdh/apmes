@@ -1,5 +1,5 @@
 {
-  "name": "apmes",
+  "name": "lhf_mes",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,26 +9,33 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@babel/core": ">=7.0.0 <8.0.0",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@fontsource/roboto": "^4.5.8",
+    "@mui/icons-material": "^5.10.16",
+    "@mui/material": "^5.10.16",
+    "@mui/styled-engine-sc": "^5.10.16",
     "@popperjs/core": "^2.11.6",
-    "@reduxjs/toolkit": "^1.9.0",
+    "@reduxjs/toolkit": "^1.9.1",
     "bootstrap": "^5.2.3",
-    "console-feed": "^3.4.0",
-    "core@^2.11.6": "link:@@popperjs/core@^2.11.6",
+    "console-feed": "^3.4.1",
     "firebase": "^9.14.0",
     "jquery": ">= 1.11.0",
-    "reach": "^1.0.1",
+    "prop-types": "^15.0.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.6.0",
     "react-dom": "^18.2.0",
+    "react-is": ">= 16.8.0",
     "react-redux": "^8.0.5",
-    "react-router-dom": "^6.4.3",
-    "redux": "^4.2.0"
+    "react-router-dom": "^6.4.4",
+    "styled-components": "^5.3.6"
   },
   "devDependencies": {
-    "@types/react": "^18.0.24",
-    "@types/react-dom": "^18.0.8",
+    "@types/react": "^18.0.26",
+    "@types/react-dom": "^18.0.9",
     "@vitejs/plugin-react": "^2.2.0",
-    "typescript": "^4.6.4",
-    "vite": "^3.2.3"
+    "typescript": "^4.9.3",
+    "vite": "^3.2.4"
   }
 }
