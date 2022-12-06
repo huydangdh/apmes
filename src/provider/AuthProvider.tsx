@@ -1,30 +1,19 @@
+import { User } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import {firebaseAuth} from "../config/firebase";
 
 export const AuthContext = React.createContext(null);
 
-export const AuthProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null);
-  const [pending, setPending] = useState(true);
+export const AuthProvider: React.FC<{children: React.ReactNode}> = ({ children }) => {
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    firebaseAuth.onAuthStateChanged((user) => {
-      setCurrentUser(user)
-      setPending(false)
+    const unsubscribe = firebaseAuth.onAuthStateChanged((firebaseUser) => {
+      setUser(firebaseUser);
     });
+
+    return unsubscribe;
   }, []);
 
-  if(pending){
-    return <>Loading...</>
-  }
-
-  return (
-    <AuthContext.Provider
-      value={{
-        currentUser
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
 };

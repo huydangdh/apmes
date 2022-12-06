@@ -15,7 +15,7 @@ import AppStore from './store'
 import {AuthContext, AuthProvider} from './provider/AuthProvider'
 
 // router 
-const PrivateRoute = ({ children }) => {
+const PrivateRoute: React.FC<{children: React.ReactNode}> = ({ children }) => {
   const { currentUser } = useContext(AuthContext);
   console.log(currentUser.refreshToken)
   if(currentUser)
