@@ -9,7 +9,7 @@ import { AppRootState, AppDispatch } from "./store"
 import { setAppIsBusy } from "./store/AppSlice"
 import { setUser, UserModel } from "./store/userStore"
 
-import { Navigate } from 'react-router-dom'
+import { Navigate, redirect } from 'react-router-dom'
 
 
 const mapStateToProps = (state: AppRootState) => {
@@ -87,6 +87,8 @@ class Login extends React.Component<LoginProps, { query: { email: string, passwo
                     emp_authed: true
                 }
                 this.props.setUser(_user);
+                console.debug(`[D] User_name ${_res.user.uid}`)
+                redirect("/home")
             }
         } catch (err) {
             alert(err);
@@ -98,11 +100,7 @@ class Login extends React.Component<LoginProps, { query: { email: string, passwo
     render(): React.ReactNode {
         return (
             <>
-                <div>
-                    {this.props.userIsAuth ? (
-                        <Navigate to="/login" replace={true} />
-                    ) : null}
-                </div>
+                {this.props.userIsAuth ? <Navigate replace to="/" /> : ""}
                 <Container>
                     <Row>
                         <Col md="6"><img src={login_bg} alt="Image" className="img-fluid" /></Col>

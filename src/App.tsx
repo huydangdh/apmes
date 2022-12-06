@@ -49,15 +49,16 @@ class App extends React.Component<AppProps, {}> {
 
   DO_TEST_USER_CHANGE() {
     try {
-      let _userModel: any = {
+      let _userModel: UserModel = {
         emp_no: 'V00002',
         emp_name: 'DENG GUANG HUI',
         emp_permission: '[]',
         emp_role: 'ADMIN',
-        emp_authed: true
+        emp_authed: true,
+        refreshToken: '####'
       }
 
-      //this.props.setUser(_userModel);
+      this.props.setUser(_userModel);
     } catch (err) {
       console.error(err);
     }
